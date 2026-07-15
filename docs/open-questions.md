@@ -32,6 +32,9 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 ## Cryptography
 
 - Which HPKE suite is practical in browser extension WebCrypto?
+- Which larger size classes should support fixed-envelope hybrid/PQ encryption?
+- Should 512 B and 2 KB entries remain HPKE-only to preserve cheap small messages?
+- Which post-quantum or hybrid KEM should be considered when the design moves beyond v1?
 - How should view tags be derived?
 - How large should view tags be?
 - Should sender identity claims be encrypted inside messages?

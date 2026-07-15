@@ -87,12 +87,28 @@ sender account mode
 paymaster mode
 relay mode
 padding class
+encryption/security lane
 chunk distribution
 dummy budget
 erasure coding
 receipt policy
 RPC/data source
 ```
+
+Encryption/security lane can be exposed as a simple choice:
+
+```text
+Standard encryption
+  cheaper, smaller entries
+  classical HPKE
+
+Long-term confidentiality
+  larger entries
+  hybrid/PQ-capable envelope
+  better resistance to harvest-now-decrypt-later risk
+```
+
+The UI should avoid implying that the stronger lane is invisible by itself. The stronger lane is hidden among other entries in the same larger fixed-envelope class, not among the smallest HPKE-only entries.
 
 ## Speed modes
 

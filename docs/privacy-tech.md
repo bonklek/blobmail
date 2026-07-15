@@ -66,6 +66,50 @@ plaintext content-type, filename, or thread metadata
 
 HPKE is the preferred standards-based construction unless implementation constraints force a different audited scheme.[^hpke]
 
+## Crypto agility and post-quantum lanes
+
+Standard HPKE suites such as X25519-based HPKE are not post-quantum secure. BlobMail should preserve crypto agility so future versions can support hybrid or post-quantum KEMs, such as a classical KEM combined with ML-KEM/Kyber.
+
+Post-quantum or hybrid encryption increases public cryptographic material size. If the public entry format exposes different key material lengths, observers may infer which encryption mode a sender used.
+
+The preferred compromise is size/security lanes:
+
+```text
+small private lanes
+  512 B / 2 KB
+  classical HPKE only
+  optimized for cheap small messages
+
+larger private lanes
+  8 KB / 32 KB
+  fixed crypto envelope large enough for hybrid PQ
+  HPKE entries pad unused crypto envelope space
+  HPKE and hybrid-PQ entries can look identical within the lane
+```
+
+This keeps tiny messages cheap while allowing larger privacy/security-capable lanes to hide whether a sender used classical HPKE or hybrid post-quantum encryption.
+
+The tradeoff is that a tiny message using hybrid PQ must move into a larger lane. Observers may see that the sender chose a larger class, but that larger class can also contain:
+
+- ordinary larger text;
+- media;
+- file attachments;
+- obfuscated small messages;
+- dummy chunks;
+- large-message fragments.
+
+So the public signal should be:
+
+```text
+this entry used a larger privacy/security-capable lane
+```
+
+not:
+
+```text
+this entry definitely used post-quantum encryption
+```
+
 ## Sender privacy
 
 Standard ERC-4337 exposes the `sender` smart-account address. To avoid linking messages to Alice's known wallet, use ephemeral smart accounts.[^erc4337]

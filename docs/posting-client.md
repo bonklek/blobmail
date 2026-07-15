@@ -149,6 +149,28 @@ Private content metadata may include:
 
 This metadata should be encrypted with the payload. Public entries should expose only the standard fields needed for routing, scanning, payment, and batching.
 
+## Encryption lane selection
+
+The posting client may allow Alice to choose an encryption/security lane:
+
+- small classical HPKE lane for cheap small payloads;
+- larger crypto-agile lane that can support HPKE or hybrid post-quantum encryption inside a fixed public envelope.
+
+If Alice chooses hybrid/PQ protection for a small payload, the client should move it into a larger class rather than exposing a unique small-entry PQ format.
+
+The client should explain the tradeoff:
+
+```text
+Standard encryption
+  lower cost
+  smaller entries
+
+Long-term confidentiality
+  larger entries
+  higher cost
+  designed to support hybrid post-quantum encryption
+```
+
 ## Chunking flow
 
 If the payload exceeds the selected class:

@@ -9,6 +9,7 @@ The motivating product is a browser-extension mail/chat surface for X/Twitter us
 The architecture combines:
 
 - recipient-key encryption, likely HPKE;
+- crypto-agile larger lanes that can potentially hide HPKE versus hybrid post-quantum encryption inside a fixed envelope;
 - public or semi-public identity-to-messaging-key registry;
 - optional `.gwei` naming;
 - padded payload size classes;
@@ -104,6 +105,27 @@ Questions:
 - How should large private video/audio messages be chunked, dispersed, and reassembled?
 - Should content-type metadata always be encrypted, even if the public size class leaks rough volume?
 - How should the receiving client avoid accidentally opening or executing malware after decryption?
+
+### Crypto agility
+
+Standard HPKE is not post-quantum secure. One proposed compromise is:
+
+```text
+small lanes:
+  HPKE only
+  cheap small messages
+
+larger lanes:
+  fixed envelope large enough for hybrid/PQ key material
+  HPKE and hybrid/PQ entries padded to look the same within the lane
+```
+
+Questions:
+
+- Is this a reasonable way to preserve cheap small messages while supporting long-term confidentiality modes?
+- Which size classes should be PQ-capable?
+- What hybrid KEM construction should be considered first?
+- How should the UI explain that the larger security lane is more expensive and only hidden within that lane?
 
 ### Privacy defaults
 
