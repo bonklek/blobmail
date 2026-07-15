@@ -39,6 +39,8 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 - Which private content metadata fields are required for media-rich payloads?
 - Should the encrypted content container be MIME-like, CBOR/JSON-manifest-based, zip-like, or something else?
 - Should media thumbnails/previews be generated only after local decryption?
+- How does the receiving client avoid automatically decrypting, previewing, opening, or executing malicious attachments?
+- Should decrypted arbitrary files be quarantined or scanned before the user can open/export them?
 
 ## AA / Paraclete
 

@@ -103,6 +103,7 @@ Questions:
 - Should media previews be generated only after decryption?
 - How should large private video/audio messages be chunked, dispersed, and reassembled?
 - Should content-type metadata always be encrypted, even if the public size class leaks rough volume?
+- How should the receiving client avoid accidentally opening or executing malware after decryption?
 
 ### Privacy defaults
 

@@ -124,10 +124,14 @@ Receiving should also feel email-like. After decryption, Bob's client should be 
 The rendering layer should be strict about safety:
 
 - no automatic execution of active content;
+- no automatic opening of decrypted attachments in external applications;
 - safe previews only after decryption;
 - clear file download/open controls;
 - local-only thumbnails/previews unless the user explicitly exports or shares content;
 - content hash validation before rendering reconstructed media.
+- malware scanning or attachment quarantine where feasible.
+
+Open safety issue: the receiving client must not accidentally decrypt and execute malware. Decryption itself may be necessary to determine content type, but the client should treat decrypted bytes as hostile until validated and explicitly rendered through safe handlers. Arbitrary attachments should default to inert storage/download, not automatic opening.
 
 The exact internal container format is open. The client only needs a stable versioned abstraction:
 
