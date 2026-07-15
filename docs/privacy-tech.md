@@ -169,9 +169,12 @@ BlobMail payloads should be arbitrary encrypted bytes. Text is only one content 
 
 - text;
 - images;
+- GIFs;
 - audio;
 - video;
 - documents;
+- arbitrary file attachments;
+- mixed multi-part content;
 - compressed archives;
 - application-specific binary objects.
 
@@ -182,8 +185,10 @@ Encrypted metadata tells Bob:
 - stream/message ID;
 - private content type or MIME type;
 - optional filename or display label;
+- inline versus attachment disposition;
 - codec/container information, if needed;
 - dimensions or duration, if needed;
+- multi-part manifest, if needed;
 - chunk index;
 - total chunks or reconstruction policy;
 - hash/commitment;

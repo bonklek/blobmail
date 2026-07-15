@@ -12,7 +12,7 @@ The architecture combines:
 - public or semi-public identity-to-messaging-key registry;
 - optional `.gwei` naming;
 - padded payload size classes;
-- arbitrary private content types such as text, images, audio, video, attachments, or application-specific binary objects;
+- arbitrary private content types such as text, images, GIFs, audio, video, attachments, mixed multipart content, or application-specific binary objects;
 - encrypted chunking for large payloads;
 - optional sender-side decryptability for sent-message audit/history;
 - ERC-4337 UserOperations for payment/authorization;
@@ -99,6 +99,7 @@ BlobMail entries should be treated as encrypted byte payloads, not just plaintex
 Questions:
 
 - What private metadata should every payload carry: MIME type, filename, codec, dimensions, duration, content hash, compression mode, or preview policy?
+- Should the encrypted content container use MIME-like multipart semantics, CBOR/JSON manifest semantics, a zip-like bundle, or something else?
 - Should media previews be generated only after decryption?
 - How should large private video/audio messages be chunked, dispersed, and reassembled?
 - Should content-type metadata always be encrypted, even if the public size class leaks rough volume?

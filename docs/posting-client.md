@@ -16,8 +16,9 @@ The posting client is the part of the [milXdy](https://github.com/bonklek/milXdy
 - detect/select the recipient from X profile context;
 - resolve recipient identity into a messaging public key;
 - compose or attach content locally;
+- support email-like rich content composition, including inline images, GIFs, video, audio, documents, and arbitrary file attachments;
 - choose privacy/cost mode;
-- encrypt message locally;
+- encrypt payload locally;
 - chunk and pad payload;
 - create or select sender account mode;
 - attach payment/sponsorship data;
@@ -64,6 +65,29 @@ Advanced mode can expose:
 - relay mode;
 - paymaster choice;
 - proof mode.
+
+## Rich composer UX
+
+The sender experience should feel closer to an email client than a plaintext-only messenger. Alice should be able to:
+
+- type formatted or plain text;
+- embed an image;
+- embed a GIF;
+- attach or embed a video;
+- attach audio;
+- attach arbitrary files;
+- mix text and media in one logical message;
+- choose whether large media is sent efficiently, mixed, or obfuscated.
+
+The protocol does not need to decide immediately whether the internal format resembles MIME, a custom CBOR/JSON manifest, a zip-like bundle, or another versioned container. The requirement is that the client accepts varying media and normalizes it into:
+
+```text
+content container
+  -> encrypted content metadata
+  -> encrypted byte payload or chunk stream
+```
+
+All user-visible media structure should be private by default. Public batch observers should not learn whether an entry is text, image, GIF, video, PDF, or a generic file attachment.
 
 ## Encryption flow
 
@@ -112,9 +136,11 @@ Private content metadata may include:
 
 - MIME type;
 - filename or display label;
+- disposition, such as inline versus attachment;
 - media container/codec;
 - dimensions;
 - duration;
+- multiple parts or attachment manifest;
 - plaintext length before padding;
 - compression mode;
 - content hash;

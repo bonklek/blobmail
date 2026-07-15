@@ -17,7 +17,7 @@ The current design assumes:
 - recipient-hiding encryption is always on;
 - users publish or resolve messaging public keys through a registry;
 - payloads are padded into common public size classes;
-- text, images, audio, video, files, and arbitrary application bytes can use the same encrypted payload envelope;
+- text, images, GIFs, audio, video, files, mixed multipart content, and arbitrary application bytes can use the same encrypted payload envelope;
 - large payloads are encrypted, chunked, and optionally dispersed;
 - pending messages can propagate through an AA/Paraclete-style mempool;
 - ERC-4337 bundlers can be extended into blob-aware batchers;

@@ -18,7 +18,7 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 - Should this ship first as a hidden [milXdy](https://github.com/bonklek/milXdy) experimental app or as a separate repo prototype?
 - Should RemiNet Chat link to BlobMail, or should the surfaces remain completely separate?
 - What is the minimum UX that proves the concept without implementing full blob settlement?
-- Which rich content types should v1 support: text only, images, audio, video, arbitrary files, or generic bytes?
+- Which rich content types should v1 support: text only, images, GIFs, audio, video, arbitrary files, mixed multipart content, or generic bytes?
 
 ## Identity
 
@@ -37,6 +37,7 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 - Should sender identity claims be encrypted inside messages?
 - What backup/recovery format should be used for messaging private keys?
 - Which private content metadata fields are required for media-rich payloads?
+- Should the encrypted content container be MIME-like, CBOR/JSON-manifest-based, zip-like, or something else?
 - Should media thumbnails/previews be generated only after local decryption?
 
 ## AA / Paraclete

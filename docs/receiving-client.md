@@ -20,6 +20,7 @@ The receiving client is Bob's local [milXdy](https://github.com/bonklek/milXdy) 
 - attempt authenticated decryption;
 - reassemble chunks;
 - store decrypted messages locally;
+- render rich decrypted content, including inline media and arbitrary attachments;
 - notify/display inside [milXdy](https://github.com/bonklek/milXdy);
 - avoid leaking which entries matched.
 
@@ -102,10 +103,41 @@ Bob's client should:
 - validate hashes;
 - reconstruct when enough fragments are available;
 - render or hand off content according to encrypted content metadata;
+- display inline media where safe and supported;
+- expose arbitrary file attachments through local download/open flows;
 - mark incomplete payloads;
 - request/rescan missing windows if possible.
 
 For a private video message, Bob's client should not know it is video until after decryption. After decryption, the client uses the encrypted media metadata to reassemble the chunks, validate the content hash, and render or download the reconstructed media locally.
+
+## Rich content rendering
+
+Receiving should also feel email-like. After decryption, Bob's client should be able to render a logical message containing:
+
+- text body;
+- inline images;
+- GIFs;
+- video or audio attachments;
+- downloadable files;
+- multiple related attachments in one content container.
+
+The rendering layer should be strict about safety:
+
+- no automatic execution of active content;
+- safe previews only after decryption;
+- clear file download/open controls;
+- local-only thumbnails/previews unless the user explicitly exports or shares content;
+- content hash validation before rendering reconstructed media.
+
+The exact internal container format is open. The client only needs a stable versioned abstraction:
+
+```text
+decrypted content container
+  -> metadata
+  -> body parts
+  -> attachments
+  -> render/download policy
+```
 
 ## Inbox behavior
 

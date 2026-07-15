@@ -69,6 +69,17 @@ Max spend: [amount]
 Expires after: [time]
 ```
 
+The composer should support ordinary mail-style content actions:
+
+- write text;
+- paste or embed an image;
+- embed a GIF;
+- attach video or audio;
+- attach arbitrary files;
+- send mixed text plus attachments as one logical private payload.
+
+The user should not need to understand the internal encoding. The frontend can show familiar attachment/media controls, then translate the composed object into BlobMail's encrypted payload container.
+
 Advanced UI:
 
 ```text
