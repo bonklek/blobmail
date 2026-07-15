@@ -1,0 +1,15 @@
+# BlobMail docs
+
+This directory contains the current BlobMail architecture notes.
+
+Start here:
+
+- [Master architecture](./master-architecture.md)
+- [Privacy technology options](./privacy-tech.md)
+- [Posting client](./posting-client.md)
+- [Receiving client](./receiving-client.md)
+- [AA mempool and Paraclete layer](./aa-mempool-paraclete.md)
+- [Blob batching and settlement](./blob-batching-settlement.md)
+- [RemiNet OAuth and identity](./reminet-oauth-identity.md)
+- [Frontend privacy/cost modes](./frontend-modes.md)
+- [Open questions](./open-questions.md)
