@@ -1,11 +1,11 @@
 # BlobMail master architecture
 
-BlobMail is a private messaging app concept intended to live inside milXdy first, then potentially split into its own repo. The product target is a browser-extension messaging layer for X/Twitter users, using Ethereum-native availability and payment mechanisms where useful, while keeping the UX simple enough for normal users.[^eip4844]
+BlobMail is a private messaging app concept intended to live inside [milXdy](https://github.com/bonklek/milXdy) first, then potentially split into its own repo. The product target is a browser-extension messaging layer for X/Twitter users, using Ethereum-native availability and payment mechanisms where useful, while keeping the UX simple enough for normal users.[^eip4844]
 
 The core product idea:
 
-1. Alice opens Bob's X profile in milXdy.
-2. milXdy resolves Bob's messaging public key.
+1. Alice opens Bob's X profile in [milXdy](https://github.com/bonklek/milXdy).
+2. [milXdy](https://github.com/bonklek/milXdy) resolves Bob's messaging public key.
 3. Alice writes a message and chooses a privacy/cost mode.
 4. The client encrypts the message locally.
 5. The encrypted payload enters a shared pending-message layer.
@@ -35,7 +35,7 @@ The system should support optional privacy paths, but private messages must pres
 The AA/mempool layer is based on ERC-4337-style UserOperations and bundlers, with Paraclete as the relevant browser-gossip implementation to evaluate.[^erc4337][^paraclete] The private payload layer should use a standard recipient-encryption construction such as HPKE unless implementation testing shows a better audited option.[^hpke]
 
 ```text
-milXdy extension
+host extension
 |-- Posting client
 |   |-- recipient resolution
 |   |-- local encryption
@@ -107,7 +107,7 @@ Bob receives
 
 ## Why RemiNet OAuth matters
 
-milXdy already has RemiNet auth infrastructure, and RemiNet exposes the user's X account. That makes RemiNet OAuth the cleanest initial way to prove that Bob controls the X account Alice sees in the browser.
+[milXdy](https://github.com/bonklek/milXdy) already has RemiNet auth infrastructure, and RemiNet exposes the user's X account. That makes RemiNet OAuth the cleanest initial way to prove that Bob controls the X account Alice sees in the browser.
 
 The harder architecture question is not whether RemiNet can verify the X account. It is where the messaging-key registry lives and how Alice gets Bob's public key without introducing an avoidable central dependency or privacy leak.
 

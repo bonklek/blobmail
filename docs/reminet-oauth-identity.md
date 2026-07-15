@@ -1,6 +1,6 @@
 # RemiNet OAuth and identity
 
-milXdy already has RemiNet auth support. BlobMail should use that where possible instead of creating a separate X OAuth flow immediately. The relevant pattern is OIDC-style identity, not RemiNet hosting the key registry.[^oidc]
+[milXdy](https://github.com/bonklek/milXdy) already has RemiNet auth support. BlobMail should use that where possible instead of creating a separate X OAuth flow immediately. The relevant pattern is OIDC-style identity, not RemiNet hosting the key registry.[^oidc]
 
 Existing local code:
 
@@ -35,7 +35,7 @@ If RemiNet already verifies X account ownership, BlobMail does not need users to
 - authorize another OAuth client;
 - expose registration via public X profile changes.
 
-It also fits milXdy's current user model.
+It also fits [milXdy](https://github.com/bonklek/milXdy)'s current user model.
 
 ## Desired identity claims
 
@@ -63,7 +63,7 @@ Prefer stable X account ID over mutable handle where possible.
 
 ```text
 Bob opens BlobMail app
-  -> milXdy checks RemiNet session
+  -> host extension checks RemiNet session
   -> Bob generates messaging keypair locally
   -> app reads the X-account identity exposed by RemiNet auth
   -> Bob signs/approves key registration

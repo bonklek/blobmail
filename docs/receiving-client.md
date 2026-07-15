@@ -1,6 +1,6 @@
 # Receiving client
 
-The receiving client is Bob's local milXdy BlobMail component. Its job is to discover blobs, scan entries, decrypt matching messages, reconstruct large messages, and display them in the extension.[^eip4844][^hpke]
+The receiving client is Bob's local [milXdy](https://github.com/bonklek/milXdy) BlobMail component. Its job is to discover blobs, scan entries, decrypt matching messages, reconstruct large messages, and display them in the extension.[^eip4844][^hpke]
 
 ## Related docs
 
@@ -20,7 +20,7 @@ The receiving client is Bob's local milXdy BlobMail component. Its job is to dis
 - attempt authenticated decryption;
 - reassemble chunks;
 - store decrypted messages locally;
-- notify/display inside milXdy;
+- notify/display inside [milXdy](https://github.com/bonklek/milXdy);
 - avoid leaking which entries matched.
 
 ## Ethereum data access

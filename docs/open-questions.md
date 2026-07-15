@@ -15,7 +15,7 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 
 ## Product
 
-- Should this ship first as a hidden milXdy experimental app or as a separate repo prototype?
+- Should this ship first as a hidden [milXdy](https://github.com/bonklek/milXdy) experimental app or as a separate repo prototype?
 - Should RemiNet Chat link to BlobMail, or should the surfaces remain completely separate?
 - What is the minimum UX that proves the concept without implementing full blob settlement?
 
@@ -74,7 +74,7 @@ These questions are organized around the current BlobMail architecture: EIP-4844
 Likely order:
 
 1. Local docs and protocol sketch.
-2. milXdy app shell prototype.
+2. [milXdy](https://github.com/bonklek/milXdy) app shell prototype.
 3. Local key generation and encrypted self-test messages.
 4. Recipient resolution through RemiNet-authenticated identity.
 5. Local padded/chunked message format.

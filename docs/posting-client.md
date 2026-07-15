@@ -1,6 +1,6 @@
 # Posting client
 
-The posting client is the part of the milXdy BlobMail app that Alice interacts with when sending a message. It creates encrypted payloads locally and turns them into AA-compatible pending operations or adjacent payload objects.[^erc4337][^hpke]
+The posting client is the part of the [milXdy](https://github.com/bonklek/milXdy) BlobMail app that Alice interacts with when sending a message. It creates encrypted payloads locally and turns them into AA-compatible pending operations or adjacent payload objects.[^erc4337][^hpke]
 
 ## Related docs
 

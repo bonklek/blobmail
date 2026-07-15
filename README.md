@@ -2,7 +2,7 @@
 
 BlobMail is an RFC-stage private messaging architecture for sending recipient-private messages through shared Ethereum blob batches.
 
-The initial client target is a browser extension integrated with milXdy on X/Twitter. The protocol explores recipient-key encryption, padded and chunked payloads, ERC-4337 UserOperations, paymaster sponsorship, Paraclete-style gossip collection, and blob-aware bundlers.
+The initial client target is a browser extension integrated with [milXdy](https://github.com/bonklek/milXdy) on X/Twitter. The protocol explores recipient-key encryption, padded and chunked payloads, ERC-4337 UserOperations, paymaster sponsorship, Paraclete-style gossip collection, and blob-aware bundlers.
 
 This repository is currently an architecture and design workspace. It is not a production implementation.
 
@@ -55,4 +55,3 @@ Feedback is especially useful on:
 RFC / architecture draft.
 
 The first implementation target should be a testnet or local devnet flow, not mainnet production settlement.
-
