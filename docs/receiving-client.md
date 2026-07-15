@@ -1,6 +1,6 @@
 # Receiving client
 
-The receiving client is Bob's local [milXdy](https://github.com/bonklek/milXdy) BlobMail component. Its job is to discover blobs, scan entries, decrypt matching messages, reconstruct large messages, and display them in the extension.[^eip4844][^hpke]
+The receiving client is Bob's local [milXdy](https://github.com/bonklek/milXdy) BlobMail component. Its job is to discover blobs, scan entries, decrypt matching payloads, reconstruct large objects, and display them in the extension.[^eip4844][^hpke]
 
 ## Related docs
 
@@ -55,8 +55,8 @@ new protocol blob detected
        skip if tag mismatch
        attempt authenticated decrypt if tag matches
        validate decrypted metadata
-       store chunk/message
-  -> reassemble complete messages
+       store chunk/payload
+  -> reassemble complete payloads
   -> update local inbox
 ```
 
@@ -82,6 +82,10 @@ Each decrypted chunk may reveal encrypted metadata:
 
 ```text
 stream_id
+content_type
+filename/display_label
+codec/container
+dimensions/duration
 chunk_index
 total_chunks or coding policy
 content_hash
@@ -97,12 +101,15 @@ Bob's client should:
 - ignore dummy chunks;
 - validate hashes;
 - reconstruct when enough fragments are available;
-- mark incomplete messages;
+- render or hand off content according to encrypted content metadata;
+- mark incomplete payloads;
 - request/rescan missing windows if possible.
+
+For a private video message, Bob's client should not know it is video until after decryption. After decryption, the client uses the encrypted media metadata to reassemble the chunks, validate the content hash, and render or download the reconstructed media locally.
 
 ## Inbox behavior
 
-Messages should be stored locally by default.
+Decrypted payloads should be stored locally by default.
 
 Possible inbox states:
 

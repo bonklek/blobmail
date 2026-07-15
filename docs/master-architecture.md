@@ -2,15 +2,17 @@
 
 BlobMail is a private messaging app concept intended to live inside [milXdy](https://github.com/bonklek/milXdy) first, then potentially split into its own repo. The product target is a browser-extension messaging layer for X/Twitter users, using Ethereum-native availability and payment mechanisms where useful, while keeping the UX simple enough for normal users.[^eip4844]
 
+Although the product can look like mail or chat, the protocol should treat content as encrypted bytes rather than plaintext. A payload may be text, images, audio, video, files, or an application-specific binary object. Content type, filename, codec, dimensions, duration, previews, and threading metadata should be encrypted unless there is an explicit reason to expose them.
+
 The core product idea:
 
 1. Alice opens Bob's X profile in [milXdy](https://github.com/bonklek/milXdy).
 2. [milXdy](https://github.com/bonklek/milXdy) resolves Bob's messaging public key.
-3. Alice writes a message and chooses a privacy/cost mode.
-4. The client encrypts the message locally.
-5. The encrypted payload enters a shared pending-message layer.
-6. A permissionless bundler/batcher packs many encrypted messages into Ethereum blobs.
-7. Bob's client scans blob batches, detects messages intended for him, decrypts locally, and displays them in the extension.
+3. Alice writes or attaches content and chooses a privacy/cost mode.
+4. The client encrypts the payload locally.
+5. The encrypted payload enters a shared pending-payload layer.
+6. A permissionless bundler/batcher packs many encrypted payloads into Ethereum blobs.
+7. Bob's client scans blob batches, detects payloads intended for him, decrypts locally, and displays or stores them in the extension.
 
 The system should support optional privacy paths, but private messages must preserve a common baseline:
 
@@ -158,7 +160,7 @@ That allows the registry backend to move from a public on-chain mapping to `.gwe
 
 BlobMail aims to hide:
 
-- plaintext message contents;
+- plaintext payload contents;
 - intended recipient inside blob entries;
 - direct Alice-to-Bob linkage in the blob;
 - Alice's main wallet, when using ephemeral sender and private sponsorship;

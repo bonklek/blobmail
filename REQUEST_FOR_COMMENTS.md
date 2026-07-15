@@ -2,7 +2,7 @@
 
 BlobMail is a proposed private encrypted messaging system using shared Ethereum blob batches as the delivery/availability layer.
 
-The motivating product is a browser-extension mail/chat surface for X/Twitter users. Alice selects Bob's X profile, resolves Bob's messaging public key, encrypts locally, submits a padded encrypted message into a shared pending layer, and a blob-aware bundler batches many such messages into one Ethereum blob. Bob's client scans blob batches and decrypts entries intended for him.
+The motivating product is a browser-extension mail/chat surface for X/Twitter users. Alice selects Bob's X profile, resolves Bob's messaging public key, encrypts locally, submits a padded encrypted payload into a shared pending layer, and a blob-aware bundler batches many such payloads into one Ethereum blob. Bob's client scans blob batches and decrypts entries intended for him.
 
 ## What is being proposed
 
@@ -11,8 +11,9 @@ The architecture combines:
 - recipient-key encryption, likely HPKE;
 - public or semi-public identity-to-messaging-key registry;
 - optional `.gwei` naming;
-- padded message size classes;
-- encrypted chunking for large messages;
+- padded payload size classes;
+- arbitrary private content types such as text, images, audio, video, attachments, or application-specific binary objects;
+- encrypted chunking for large payloads;
 - optional sender-side decryptability for sent-message audit/history;
 - ERC-4337 UserOperations for payment/authorization;
 - paymasters for sponsorship;
@@ -91,6 +92,17 @@ Questions:
 - Can this be made compatible with ERC-4337 paymaster settlement?
 - Should v1 include a challenge window, or only use client-side auditing while the proof model is hardened?
 
+### Rich content
+
+BlobMail entries should be treated as encrypted byte payloads, not just plaintext messages.
+
+Questions:
+
+- What private metadata should every payload carry: MIME type, filename, codec, dimensions, duration, content hash, compression mode, or preview policy?
+- Should media previews be generated only after decryption?
+- How should large private video/audio messages be chunked, dispersed, and reassembled?
+- Should content-type metadata always be encrypted, even if the public size class leaks rough volume?
+
 ### Privacy defaults
 
 Questions:
@@ -111,4 +123,3 @@ Questions:
 - [RemiNet OAuth and identity](./docs/reminet-oauth-identity.md)
 - [Frontend privacy/cost modes](./docs/frontend-modes.md)
 - [Open questions](./docs/open-questions.md)
-

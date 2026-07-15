@@ -10,12 +10,12 @@ BlobMail should expose privacy choices to users, but only where those choices do
 - [Frontend privacy/cost modes](./frontend-modes.md)
 - [RemiNet OAuth and identity](./reminet-oauth-identity.md)
 
-## Always-on private-message baseline
+## Always-on private-payload baseline
 
-Every message in the private lane should use:
+Every payload in the private lane should use:
 
 - recipient-key encryption;
-- fresh sender-side ephemeral encryption key per message or chunk;
+- fresh sender-side ephemeral encryption key per payload or chunk;
 - no public recipient identifier in the entry;
 - no Bob public key in the entry;
 - authenticated encryption;
@@ -23,7 +23,7 @@ Every message in the private lane should use:
 - local recipient scanning;
 - relay-only networking by default.
 
-There should not be a cheaper "private but unencrypted" mode. Public messages belong in a separate lane.
+There should not be a cheaper "private but unencrypted" mode. Public messages or public media belong in a separate lane.
 
 ## Recipient privacy
 
@@ -61,7 +61,7 @@ The public entry does not contain:
 bob.gwei
 Bob's wallet address
 Bob's messaging public key
-plaintext thread metadata
+plaintext content-type, filename, or thread metadata
 ```
 
 HPKE is the preferred standards-based construction unless implementation constraints force a different audited scheme.[^hpke]
@@ -163,13 +163,27 @@ variable logical chunks -> standard padded public entries
 
 This lets Alice spend more for obfuscation without weakening the shared pool.
 
-## Large message privacy
+## Rich content and large-object privacy
 
-Large messages are split into encrypted chunks. Publicly, each chunk should look like an independent padded private entry.
+BlobMail payloads should be arbitrary encrypted bytes. Text is only one content type. The same envelope should support:
+
+- text;
+- images;
+- audio;
+- video;
+- documents;
+- compressed archives;
+- application-specific binary objects.
+
+Large payloads are split into encrypted chunks. Publicly, each chunk should look like an independent padded private entry.
 
 Encrypted metadata tells Bob:
 
 - stream/message ID;
+- private content type or MIME type;
+- optional filename or display label;
+- codec/container information, if needed;
+- dimensions or duration, if needed;
 - chunk index;
 - total chunks or reconstruction policy;
 - hash/commitment;
@@ -178,6 +192,8 @@ Encrypted metadata tells Bob:
 - reply/thread context.
 
 Public entries should not share a visible message ID.
+
+A private video message is therefore just a large encrypted byte stream with encrypted media metadata. Alice can chunk it into 32 KB-class entries, optionally add redundancy or dummy chunks, and disperse those chunks across batches. Bob only learns the media type, duration, codec, and reconstruction metadata after decrypting enough chunks.
 
 ## References
 

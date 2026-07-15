@@ -106,6 +106,8 @@ RPC/data source
 
 ## Large-message modes
 
+These modes apply to any large encrypted payload, not only text. A private video, audio note, image bundle, or document can be chunked and distributed the same way.
+
 ### Efficient
 
 Minimum padded chunks.

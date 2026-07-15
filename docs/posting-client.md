@@ -1,6 +1,6 @@
 # Posting client
 
-The posting client is the part of the [milXdy](https://github.com/bonklek/milXdy) BlobMail app that Alice interacts with when sending a message. It creates encrypted payloads locally and turns them into AA-compatible pending operations or adjacent payload objects.[^erc4337][^hpke]
+The posting client is the part of the [milXdy](https://github.com/bonklek/milXdy) BlobMail app that Alice interacts with when sending content. It creates encrypted payloads locally and turns them into AA-compatible pending operations or adjacent payload objects.[^erc4337][^hpke]
 
 ## Related docs
 
@@ -15,13 +15,13 @@ The posting client is the part of the [milXdy](https://github.com/bonklek/milXdy
 
 - detect/select the recipient from X profile context;
 - resolve recipient identity into a messaging public key;
-- compose message locally;
+- compose or attach content locally;
 - choose privacy/cost mode;
 - encrypt message locally;
 - chunk and pad payload;
 - create or select sender account mode;
 - attach payment/sponsorship data;
-- submit to the pending-message layer;
+- submit to the pending-payload layer;
 - track pending status until inclusion, expiry, cancellation, or failure.
 
 ## Recipient resolution
@@ -67,12 +67,12 @@ Advanced mode can expose:
 
 ## Encryption flow
 
-For each message or chunk:
+For each payload or chunk:
 
 1. Resolve Bob's messaging public key.
 2. Generate ephemeral encryption key.
 3. Derive shared secret.
-4. Build encrypted metadata.
+4. Build encrypted metadata, including private content type and reconstruction metadata.
 5. Encrypt payload.
 6. Pad to selected public size class.
 7. Produce message commitment.
@@ -91,9 +91,41 @@ commitment
 
 The exact format should be deterministic and versioned.
 
+## Content model
+
+The posting client should treat user content as arbitrary bytes:
+
+```text
+content_bytes + encrypted_content_metadata -> encrypted payload
+```
+
+Examples:
+
+- UTF-8 text note;
+- image;
+- audio clip;
+- private video message;
+- PDF or document;
+- application-specific binary object.
+
+Private content metadata may include:
+
+- MIME type;
+- filename or display label;
+- media container/codec;
+- dimensions;
+- duration;
+- plaintext length before padding;
+- compression mode;
+- content hash;
+- preview policy;
+- reply/thread relationship.
+
+This metadata should be encrypted with the payload. Public entries should expose only the standard fields needed for routing, scanning, payment, and batching.
+
 ## Chunking flow
 
-If the message exceeds the selected class:
+If the payload exceeds the selected class:
 
 1. Compress if enabled.
 2. Split into logical fragments.
